@@ -230,10 +230,13 @@ const Home = () => {
         </div>
         <div className="card">
           <h2>Arrests by Race</h2>
-          <img
-            src="arrest_race_doughnut_design.png"
-            alt=""
-          />
+          <div className="img-stack">
+            <img
+              id="odd"
+              src="arrest_race_doughnut_design.png"
+              alt=""
+            />
+          </div>
           <div className="labels">
             <div className="label">
               <span
