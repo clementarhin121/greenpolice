@@ -27,9 +27,9 @@ const Home = () => {
         <hr style={add} />
         <div className="intro">
           <p>
-            The U.S has largest car traffic in the world propmting active police
-            presence on the highway. This report investgates insights from
-            police traffic stops dataset.{" "}
+            The U.S has the largest car traffic in the world propmting active
+            police presence on roads. This report investgates insights from a
+            Rhode Island "police traffic stops" dataset .{" "}
           </p>
         </div>
       </div>
@@ -59,14 +59,6 @@ const Home = () => {
             <p className="value">5,877</p>
           </div>
         </div>
-
-        <div className="card">
-          <h2>Trends by seasons</h2>
-          <img
-            src="traffic_stops_by_season.png"
-            alt=""
-          />
-        </div>
         <div className="card">
           <h2>Trends by Time of the Day</h2>
           <img
@@ -74,6 +66,14 @@ const Home = () => {
             alt=""
           />
         </div>
+        <div className="card">
+          <h2>Trends by seasons</h2>
+          <img
+            src="traffic_stops_by_season.png"
+            alt=""
+          />
+        </div>
+
         <div className="card">
           <h2>Stops by Gender</h2>
           <div className="chart-container">
@@ -275,6 +275,7 @@ const Home = () => {
       {/* Footer */}
       <footer className="footer">
         <p>&copy; 2025 Police Data Analysis Project</p>
+        <p>Clement A Arhin</p>
         <div className="socials">
           <span>🔗 GitHub</span>
           <span>🐦 Twitter</span>
