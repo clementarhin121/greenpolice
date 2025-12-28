@@ -40,7 +40,7 @@ const Home = () => {
 
   // Fetch yearly trend
   useEffect(() => {
-    fetch(`${base}/JSONstop_trend.json`)
+    fetch(`${base}public/JSONstop_trend.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load stop trend data");
         return res.json();
@@ -51,7 +51,7 @@ const Home = () => {
 
   // Fetch season data
   useEffect(() => {
-    fetch(`${base}/JSONstop_season.json`)
+    fetch(`${base}public/JSONstop_season.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load stop season data");
         return res.json();
@@ -62,7 +62,7 @@ const Home = () => {
 
   // Fetch time-of-day data
   useEffect(() => {
-    fetch(`${base}/JSONstop_time_trend.json`)
+    fetch(`${base}public/JSONstop_time_trend.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load time-of-day data");
         return res.json();
@@ -73,7 +73,7 @@ const Home = () => {
 
   // Fetch gender trend data
   useEffect(() => {
-    fetch(`${base}/JSONstop_gender.json`)
+    fetch(`${base}public/JSONstop_gender.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load gender data");
         return res.json();
@@ -84,7 +84,7 @@ const Home = () => {
 
   // Fetch race trend data
   useEffect(() => {
-    fetch(`${base}/JSON_race_trend.json`)
+    fetch(`${base}public/JSON_race_trend.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load race data");
         return res.json();
@@ -93,7 +93,7 @@ const Home = () => {
       .catch(console.error);
   }, [base]);
   useEffect(() => {
-    fetch(`${base}/JSONstop_violations.json`)
+    fetch(`${base}public/JSONstop_violations.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load violations data");
         return res.json();
@@ -102,7 +102,7 @@ const Home = () => {
       .catch(console.error);
   }, [base]);
   useEffect(() => {
-    fetch(`${base}/JSONspeeding_by_race.json`)
+    fetch(`${base}public/JSONspeeding_by_race.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load speeding-by-race data");
         return res.json();
@@ -111,7 +111,7 @@ const Home = () => {
       .catch(console.error);
   }, [base]);
   useEffect(() => {
-    fetch(`${base}/JSONdrugs_by_race_percentage.json`)
+    fetch(`${base}public/JSONdrugs_by_race_percentage.json`)
       .then((res) => {
         if (!res.ok)
           throw new Error("Failed to load drug-race percentage data");
@@ -122,7 +122,7 @@ const Home = () => {
   }, [base]);
   // Fetch race outcome counts
   useEffect(() => {
-    fetch(`${base}/JSONrace_outcome_counts.json`)
+    fetch(`${base}public/JSONrace_outcome_counts.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load race outcome data");
         return res.json();
@@ -133,7 +133,7 @@ const Home = () => {
 
   // Fetch stop outcome counts
   useEffect(() => {
-    fetch(`${base}/JSONstop_outcomes.json`)
+    fetch(`${base}public/JSONstop_outcomes.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load stop outcome data");
         return res.json();
@@ -198,6 +198,7 @@ const Home = () => {
         {/* Yearly Trend */}
         <div className="card">
           <h2>Traffic Stops Trend</h2>
+
           <ResponsiveContainer
             width="100%"
             height={350}>
@@ -206,30 +207,34 @@ const Home = () => {
               margin={{ top: 20, right: 20, left: 20, bottom: 50 }}>
               <XAxis
                 dataKey="year"
-                interval={0} // show all labels
-                angle={-45} // tilt labels for readability
+                interval={0}
+                angle={-45}
                 textAnchor="end"
                 tick={{ fontSize: 12 }}
               />
               <YAxis />
               <Tooltip />
+
               <Line
                 type="monotone"
                 dataKey="count"
                 stroke="#8884d8"
                 strokeWidth={2}
                 dot={(props) => {
-                  const max = Math.max(...data.map((d) => d.count)); // find max value
-                  const isMax = props.payload.count === max; // check if this dot is max
+                  const max = Math.max(...data.map((d) => d.count));
+                  const isMax = props.payload.count === max;
+
                   return (
-                    <circle
-                      cx={props.cx}
-                      cy={props.cy}
-                      r={isMax ? 6 : 4} // bigger dot for max
-                      fill={isMax ? "#FF0000" : "#8884d8"} // red for max
-                      stroke={isMax ? "#000" : "none"} // optional border
-                      strokeWidth={isMax ? 1 : 0}
-                    />
+                    <g>
+                      <circle
+                        cx={props.cx}
+                        cy={props.cy}
+                        r={isMax ? 6 : 4}
+                        fill={isMax ? "#FF0000" : "white"}
+                        stroke={isMax ? "#FF0000" : "#8884d8"}
+                        strokeWidth={isMax ? 2 : 1}
+                      />
+                    </g>
                   );
                 }}
               />
@@ -290,10 +295,10 @@ const Home = () => {
             }}>
             {[
               { label: "6–10 AM", color: "red" },
-              { label: "11 AM–2 PM", color: "#82ca9d" },
+              { label: "11 AM–2 PM", color: "#FF6F61" },
               { label: "11 PM–5 AM", color: "#FFA500" },
-              { label: "3–6 PM", color: "#FF6F61" },
-              { label: "7–10 PM", color: "#6B5B95" },
+              { label: "3–6 PM", color: "#82ca9d" },
+              { label: "7–10 PM", color: "green" },
             ].map((group) => (
               <div
                 key={group.label}
@@ -337,25 +342,132 @@ const Home = () => {
           </ResponsiveContainer>
         </div>
 
+        {/* Stops by Gender */}
+
+        <div className="card">
+          <h2>Stops by Gender</h2>
+          <ResponsiveContainer
+            width="100%"
+            height={300}>
+            <PieChart>
+              <Pie
+                data={genderData.map((d) => ({
+                  ...d,
+                  gender:
+                    d.gender.toLowerCase() === "unknown" ? "Unknown" : d.gender,
+                }))}
+                dataKey="count"
+                nameKey="gender"
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                labelLine={false} // remove the lines
+                label={({
+                  cx,
+                  cy,
+                  midAngle,
+                  innerRadius,
+                  outerRadius,
+                  value,
+                  index,
+                  payload,
+                }) => {
+                  const total = genderData.reduce(
+                    (acc, curr) => acc + curr.count,
+                    0
+                  );
+                  const percent = ((value / total) * 100).toFixed(1);
+
+                  // get initial of gender
+                  const initial = payload.gender.charAt(0).toUpperCase();
+
+                  const RADIAN = Math.PI / 180;
+                  const radius = innerRadius + (outerRadius - innerRadius) / 2;
+                  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+                  return (
+                    <text
+                      x={x}
+                      y={y}
+                      fill="#fff"
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fontSize={12}
+                      fontWeight="bold">
+                      {initial} - {percent}%
+                    </text>
+                  );
+                }}>
+                {genderData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={GENDER_COLORS[index % GENDER_COLORS.length]}
+                  />
+                ))}
+              </Pie>
+
+              <Tooltip
+                formatter={(value, name) => {
+                  const total = genderData.reduce(
+                    (acc, curr) => acc + curr.count,
+                    0
+                  );
+                  const percent = ((value / total) * 100).toFixed(1);
+                  return [`${percent}%`, name];
+                }}
+              />
+
+              <Legend verticalAlign="bottom" />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
         {/* Stops by Race */}
         <div className="card">
-          <h2>Stops by Race </h2>
+          <h2>Stops by Race</h2>
+
           <ResponsiveContainer
             width="100%"
             height={350}>
             <BarChart
               data={raceData}
-              margin={{ bottom: 70 }} // NOT a class, safe for CSS
-            >
+              margin={{ bottom: 70 }}>
               <XAxis
                 dataKey="race"
-                interval={0} // show all labels
-                angle={-30} // slant labels
+                interval={0}
+                angle={-30}
                 textAnchor="end"
               />
               <YAxis />
-              <Tooltip />
-              <Bar dataKey="count">
+
+              <Tooltip
+                formatter={(value, name, props) => {
+                  const total = raceData.reduce((sum, d) => sum + d.count, 0);
+                  return [
+                    `${((value / total) * 100).toFixed(1)}%`,
+                    "Percentage",
+                  ];
+                }}
+              />
+
+              <Bar
+                dataKey="count"
+                barSize={40}
+                label={({ x, y, width, value }) => {
+                  const total = raceData.reduce((sum, d) => sum + d.count, 0);
+                  const percent = ((value / total) * 100).toFixed(1);
+                  return (
+                    <text
+                      x={x + width / 2}
+                      y={y - 6}
+                      textAnchor="middle"
+                      fontSize={12}
+                      fill="#000">
+                      {percent}%
+                    </text>
+                  );
+                }}>
                 {raceData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
@@ -367,69 +479,61 @@ const Home = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* Stops by Gender */}
-        <div className="card">
-          <h2>Stops by Gender</h2>
-          <ResponsiveContainer
-            width="100%"
-            height={300}>
-            <PieChart>
-              <Pie
-                data={genderData}
-                dataKey="count"
-                nameKey="gender"
-                cx="50%"
-                cy="50%"
-                outerRadius={100}
-                label={false} // remove inside labels
-              >
-                {genderData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={GENDER_COLORS[index % GENDER_COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <Tooltip
-                formatter={(value, name, props) => {
-                  const total = genderData.reduce(
-                    (acc, curr) => acc + curr.count,
-                    0
-                  );
-                  const percent = ((value / total) * 100).toFixed(1);
-                  return [`${percent}%`, name];
-                }}
-              />
-              <Legend verticalAlign="bottom" />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-
         {/* Violations Trend */}
         <div className="card">
           <h2>Top 3 Violations</h2>
+
           <ResponsiveContainer
             width="100%"
             height={400}>
             <BarChart
-              data={violationData
-                .sort((a, b) => b.count - a.count) // sort descending
-                .slice(0, 3)} // ✅ take top 3 only
+              data={violationData.sort((a, b) => b.count - a.count).slice(0, 3)}
               margin={{ top: 20, right: 30, left: 20, bottom: 50 }}>
               <XAxis
                 dataKey="violation"
                 tick={{ fontSize: 12 }}
                 angle={-20}
                 textAnchor="end"
-                interval={0} // display all labels (3 is fine)
+                interval={0}
               />
               <YAxis />
-              <Tooltip />
+              <Tooltip
+                formatter={(value, name, props) => {
+                  const total = violationData
+                    .sort((a, b) => b.count - a.count)
+                    .slice(0, 3)
+                    .reduce((sum, d) => sum + d.count, 0);
+
+                  return [
+                    `${((value / total) * 100).toFixed(1)}%`,
+                    "Percentage",
+                  ];
+                }}
+              />
+
               <Bar
                 dataKey="count"
                 fill="#FF6F61"
                 barSize={60}
-                label={{ position: "top", fontSize: 12 }}
+                label={({ x, y, width, value }) => {
+                  const top3 = violationData
+                    .sort((a, b) => b.count - a.count)
+                    .slice(0, 3);
+
+                  const total = top3.reduce((sum, d) => sum + d.count, 0);
+                  const percent = ((value / total) * 100).toFixed(1);
+
+                  return (
+                    <text
+                      x={x + width / 2}
+                      y={y - 6}
+                      textAnchor="middle"
+                      fontSize={12}
+                      fill="#000">
+                      {percent}%
+                    </text>
+                  );
+                }}
               />
             </BarChart>
           </ResponsiveContainer>
