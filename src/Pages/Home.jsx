@@ -40,7 +40,7 @@ const Home = () => {
 
   // Fetch yearly trend
   useEffect(() => {
-    fetch(`${base}public/JSONstop_trend.json`)
+    fetch(`${base}/JSONstop_trend.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load stop trend data");
         return res.json();
@@ -51,7 +51,7 @@ const Home = () => {
 
   // Fetch season data
   useEffect(() => {
-    fetch(`${base}public/JSONstop_season.json`)
+    fetch(`${base}/JSONstop_season.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load stop season data");
         return res.json();
@@ -62,7 +62,7 @@ const Home = () => {
 
   // Fetch time-of-day data
   useEffect(() => {
-    fetch(`${base}public/JSONstop_time_trend.json`)
+    fetch(`${base}/JSONstop_time_trend.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load time-of-day data");
         return res.json();
@@ -73,7 +73,7 @@ const Home = () => {
 
   // Fetch gender trend data
   useEffect(() => {
-    fetch(`${base}public/JSONstop_gender.json`)
+    fetch(`${base}/JSONstop_gender.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load gender data");
         return res.json();
@@ -84,7 +84,7 @@ const Home = () => {
 
   // Fetch race trend data
   useEffect(() => {
-    fetch(`${base}public/JSON_race_trend.json`)
+    fetch(`${base}/JSON_race_trend.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load race data");
         return res.json();
@@ -93,7 +93,7 @@ const Home = () => {
       .catch(console.error);
   }, [base]);
   useEffect(() => {
-    fetch(`${base}public/JSONstop_violations.json`)
+    fetch(`${base}/JSONstop_violations.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load violations data");
         return res.json();
@@ -102,7 +102,7 @@ const Home = () => {
       .catch(console.error);
   }, [base]);
   useEffect(() => {
-    fetch(`${base}public/JSONspeeding_by_race.json`)
+    fetch(`${base}/JSONspeeding_by_race.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load speeding-by-race data");
         return res.json();
@@ -111,7 +111,7 @@ const Home = () => {
       .catch(console.error);
   }, [base]);
   useEffect(() => {
-    fetch(`${base}public/JSONdrugs_by_race_percentage.json`)
+    fetch(`${base}/JSONdrugs_by_race_percentage.json`)
       .then((res) => {
         if (!res.ok)
           throw new Error("Failed to load drug-race percentage data");
@@ -122,7 +122,7 @@ const Home = () => {
   }, [base]);
   // Fetch race outcome counts
   useEffect(() => {
-    fetch(`${base}public/JSONrace_outcome_counts.json`)
+    fetch(`${base}/JSONrace_outcome_counts.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load race outcome data");
         return res.json();
@@ -133,7 +133,7 @@ const Home = () => {
 
   // Fetch stop outcome counts
   useEffect(() => {
-    fetch(`${base}public/JSONstop_outcomes.json`)
+    fetch(`${base}/JSONstop_outcomes.json`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load stop outcome data");
         return res.json();
